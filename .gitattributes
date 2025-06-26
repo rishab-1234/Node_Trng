@@ -1,0 +1,25 @@
+# Handle line endings automatically
+* text=auto
+
+# Force LF (Unix-style) line endings for source code
+*.js     text eol=lf
+*.ts     text eol=lf
+*.json   text eol=lf
+*.html   text eol=lf
+*.css    text eol=lf
+*.md     text eol=lf
+
+# Binary files - keep as-is
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.pdf    binary
+*.zip    binary
+*.ttf    binary
+*.woff   binary
+*.woff2  binary
+
+# Ignore node_modules (no need to track or worry about those files)
+node_modules/** text=auto
