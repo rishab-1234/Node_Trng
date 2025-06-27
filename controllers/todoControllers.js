@@ -101,7 +101,7 @@ const getItems = async (req, res) => {
             description: 1, title: 1,
             completed: 1, _id: 0
         }).populate('userId', 'name email');
-        if (!todoName) { return res.status(404).json({ error: 'not found' }); }
+        if (!todoName) { return res.status(404).json({ error: 'Todo not found' }); }
         res.json({ message: 'Todo is found.', 'result': todoName });
     } catch (err) {
         res.status(400).send({ status: 400, message: err.message });
