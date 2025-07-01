@@ -5,7 +5,7 @@ const cloudinary = require('../middlewares/cloudinary');
 const fs = require('fs');
 
 
-//======== signuP APIs ====== 
+//======== signuP APIs ======
 
 const signUp = async (req, res) => {
     const { name, email, password, age } = req.body;
@@ -88,15 +88,17 @@ const singleUser = async (req, res) => {
 
 const singleName = async (req, res) => {
     try {
-        const userName = await Users.find({ name: req.params.userName });
-        if (!userName) {
+        const name = req.query.userName;
+        const singleUserName = await Users.find({name});
+        if (!singleUserName) {
             return res.status(404).send('User is not in the database.');
         }
-        res.status(201).send({ message: "user found", userName });
+        res.status(201).send({ message: "user found", singleUserName });
     } catch (err) {
-        res.status(400).json({ error: err.messag });
+        res.status(400).json({ error: err.message });
     }
 }
+
 // ======== update user =========
 
 const userUpdate = async (req, res) => {
@@ -114,16 +116,17 @@ const userUpdate = async (req, res) => {
 
 //========== delete user =============
 
-const userDelete = async (req, res) => {
+const userSoftDelete = async (req, res) => {
     try {
-        const userDeleted = await Users.findByIdAndDelete(req.params.id);
+        const id =req.params.id;
+        const userDeleted = await Users.findByIdAndUpdate(id,
+            {isDeleted: true},{new:true});
         if (!userDeleted) { return res.status(404).send('User is not found'); }
-        res.status(201).json("Deleted Success.", userDeleted);
+        res.status(201).json({message: "User soft deleted successfully.", userDeleted});
     } catch (error) {
-        res.status(400).json({ err: error.message });
+        res.status(400).json({message: "Error deleting user.", err: error.message });
     }
 }
 
-
-module.exports = { signUp, login, usersList, singleUser, singleName, userUpdate, userDelete };
+module.exports = { signUp, login, usersList, singleUser, singleName, userUpdate, userSoftDelete };
 

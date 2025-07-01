@@ -14,12 +14,13 @@ router.post('/signUp',validate(signupSchema),upload.single('profileImage'),Contr
 router.post('/login',validate(loginSchema),Controller.login);
 router.get('/getUserList',Controller.usersList);
 router.get('/getUser/:id',auth,Controller.singleUser);
-router.get('/:userName',auth,Controller.singleName);
+router.get('/userName',auth,Controller.singleName);
 router.put('/updateUser/:id',auth,Controller.userUpdate);
-router.delete('/userDelete/:id',auth,Controller.userDelete);
+router.delete('/userSoftDelete/:id',auth,Controller.userSoftDelete);
+
 
 //========== todo_User_Routes ======
-router.post('/signupTodo',validate(todoSchema),auth,upload.array('images',3),todoController.signupTodo);
+router.post('/createTodo',validate(todoSchema),auth,upload.array('images',3),todoController.createTodo);
 router.get('/',todoController.UserTodo);
 router.get('/singleUserTodo/:id',auth,todoController.singleUserTodo);
 router.put('/updateTodo/:id',auth,todoController.updateTodo);

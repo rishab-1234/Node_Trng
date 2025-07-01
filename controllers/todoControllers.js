@@ -5,7 +5,7 @@ const fs = require('fs');
 
 
 
-const signupTodo = async (req, res) => {
+const createTodo = async (req, res) => {
     try {
         const { title, description } = req.body;
         const existingTodo = await todo.findOne({
@@ -108,4 +108,4 @@ const getItems = async (req, res) => {
     }
 }
 
-module.exports = { signupTodo, UserTodo, singleUserTodo, updateTodo, deleteTodo, getItems };
+module.exports = { createTodo, UserTodo, singleUserTodo, updateTodo, deleteTodo, getItems };

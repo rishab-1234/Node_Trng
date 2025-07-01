@@ -8,10 +8,9 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
     },
     password: {
-        type: String, 
+        type: String,
         required: true,
         unique: true,
     },
@@ -22,6 +21,10 @@ const userSchema = new mongoose.Schema({
     profileImageUrl:{
         type:String
     },
+    isDeleted:{
+        type:Boolean,
+        default:false
+    }
 },
     { timestamps: true });
 const Users = mongoose.model('User', userSchema);
