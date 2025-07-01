@@ -14,7 +14,7 @@ router.post('/signUp',validate(signupSchema),upload.single('profileImage'),Contr
 router.post('/login',validate(loginSchema),Controller.login);
 router.get('/getUserList',Controller.usersList);
 router.get('/getUser/:id',auth,Controller.singleUser);
-router.get('/:userName',Controller.singleName);
+router.get('/:userName',auth,Controller.singleName);
 router.put('/updateUser/:id',auth,Controller.userUpdate);
 router.delete('/userDelete/:id',auth,Controller.userDelete);
 
