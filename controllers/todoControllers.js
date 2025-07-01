@@ -3,7 +3,7 @@ const cloudinary = require('../middlewares/cloudinary');
 const fs = require('fs');
 
 
-// -------- sign up todo ------------------ //
+
 
 const signupTodo = async (req, res) => {
     try {
