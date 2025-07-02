@@ -139,12 +139,19 @@ const userUpdate = async (req, res) => {
 const userSoftDelete = async (req, res) => {
   try {
     const id = req.params.id;
+    const _id = req.user.id;
+
     const user = await Users.findById(id);
     if (!user) {
       return res.status(404).send({ message: "User is not found.", error: "No user with given ID" });
     }
     if(user.isDeleted) {
         return res.status(400).send({ message: "User is already deleted.", error: " Cannot delete again."})
+    }
+    if (user._id.toString() !== _id.toString()) {
+        return res.status(403).json({
+          message: "Unauthorized. You cannot delete other user Todo."
+        });
     }
     user.isDeleted = true;
     user.deletedAt = new Date();

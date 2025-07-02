@@ -15,8 +15,7 @@ const createTodo = async (req, res) => {
       return res
         .status(400)
         .json({
-          message: "Todo with this title already exists for this user.",error: "Cannot create todo with same title."
-        });
+          message: "Todo with this title already exists for this user."});
     }
     const imageUrls = await Promise.all(
       req.files.map(async (file) => {
@@ -94,12 +93,18 @@ const updateTodo = async (req, res) => {
 const todoSoftDelete = async (req, res) => {
   try {
     const _id = req.params.id;
+    const userId = req.user.id;
     const Todo = await todo.findById({_id});
     if (!Todo) {
       return res.status(404).json({ message: " Todo is not found.", error: "No todo with given ID."});
     }
     if(Todo.isDeleted) {
       return res.status(400).send({message: "Todo is already deleted.",error: " Cannot delete again."})
+    }
+    if (Todo.userId.toString() !== userId.toString()) {
+      return res.status(403).json({
+        message: "Unauthorized. You cannot delete other user Todo."
+      });
     }
     Todo.isDeleted = true;
     Todo.deletedAt = new Date();
