@@ -1,30 +1,36 @@
 const mongoose = require("mongoose");
 const Users = require("./userSchema");
 
-const todoSchema = new mongoose.Schema({
+const todoSchema = new mongoose.Schema(
+  {
     title: {
-        type: String,
-        required: true,
-         trim: true,
+      type: String,
+      required: true,
+      trim: true,
     },
     description: {
-        type: String,
-         trim: true,
+      type: String,
+      trim: true,
     },
     completed: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
-    images:[String],
+    images: [String],
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: Users
+      type: mongoose.Schema.Types.ObjectId,
+      ref: Users,
     },
-    dueDate: {
-        type: Date,
-        default: Date.now
+    isDeleted: {
+      type: Boolean,
+      default: false,
     },
-}, { timestamps: true }
+    deletedAt: {
+      type: Date,
+      default: null,
+    },
+  },
+  { timestamps: true },
 );
 
 const todo = mongoose.model("todo", todoSchema);
